@@ -1,0 +1,30 @@
+{
+  "name": "wb-labour-sso",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unified Portal Dashboard for West Bengal Labour Department (SSO)",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "concurrently --kill-others-on-fail -n \"api,web,factory,portal-b\" -c \"blue,green,magenta,cyan\" \"npm run dev:api\" \"npm run dev:web\" \"npm run dev:factory\" \"npm run dev:portal-b\"",
+    "dev:api": "npm run dev --workspace=@wb-sso/api",
+    "dev:web": "npm run dev --workspace=@wb-sso/web",
+    "dev:factory": "npm run dev --workspace=@wb-sso/mock-factory-portal",
+    "dev:portal-b": "npm run dev --workspace=@wb-sso/mock-portal-b",
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test:api && npm run test:web",
+    "test:api": "npm run test --workspace=@wb-sso/api --if-present",
+    "test:web": "npm run test --workspace=@wb-sso/web --if-present",
+    "test:e2e": "npx playwright test",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "prettier": "^3.5.0",
+    "typescript": "^5.7.3"
+  }
+}

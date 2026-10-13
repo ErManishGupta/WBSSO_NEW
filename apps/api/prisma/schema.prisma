@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  APPLICANT
+  OFFICER
+  ADMIN
+}
+
+enum PortalStatus {
+  ACTIVE
+  MAINTENANCE
+  DISABLED
+}
+
+enum AccountStatus {
+  ACTIVE
+  SUSPENDED
+  REVOKED
+}
+
+enum LinkingMethod {
+  OIDC_FEDERATION
+  SIGNED_TOKEN_HANDOFF
+  CONSENT_LINK
+}
+
+enum NotificationLevel {
+  INFO
+  ACTION
+  WARNING
+}
+
+model User {
+  id                String          @id @default(uuid())
+  username          String          @unique
+  passwordHash      String
+  name              String
+  email             String          @unique
+  mobile            String          @unique
+  userType          UserType        @default(APPLICANT)
+  preferredLanguage String          @default("en")
+  failedLogins      Int             @default(0)
+  lockedUntil       DateTime?
+  createdAt         DateTime        @default(now())
+
+  sessions          Session[]
+  portalAccounts    PortalAccount[]
+  notifications     Notification[]
+  auditLogs         AuditLog[]
+  launchTokens      LaunchToken[]
+
+  @@index([username])
+  @@index([mobile])
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  expiresAt DateTime
+  ip        String
+  userAgent String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Portal {
+  id               String          @id @default(uuid())
+  slug             String          @unique
+  nameEn           String
+  nameBn           String
+  descriptionEn    String
+  descriptionBn    String
+  iconKey          String
+  baseUrl          String
+  launchUrl        String
+  linkingMethod    LinkingMethod   @default(SIGNED_TOKEN_HANDOFF)
+  status           PortalStatus    @default(ACTIVE)
+  allowedUserTypes UserType[]
+  sortOrder        Int             @default(0)
+
+  accounts         PortalAccount[]
+  notifications    Notification[]
+  launchTokens     LaunchToken[]
+
+  @@index([slug])
+  @@index([status])
+}
+
+model PortalAccount {
+  id             String        @id @default(uuid())
+  userId         String
+  portalId       String
+  externalUserId String
+  portalRole     String
+  status         AccountStatus @default(ACTIVE)
+  linkedAt       DateTime      @default(now())
+  lastLaunchedAt DateTime?
+  linkingMethod  LinkingMethod
+
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  portal         Portal        @relation(fields: [portalId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, portalId])
+  @@index([userId, status])
+}
+
+model LaunchToken {
+  jti       String    @id
+  userId    String
+  portalId  String
+  expiresAt DateTime
+  usedAt    DateTime?
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  portal    Portal    @relation(fields: [portalId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([portalId])
+  @@index([expiresAt])
+}
+
+model Notification {
+  id        String            @id @default(uuid())
+  userId    String
+  portalId  String?
+  titleEn   String
+  titleBn   String
+  bodyEn    String
+  bodyBn    String
+  level     NotificationLevel @default(INFO)
+  readAt    DateTime?
+  createdAt DateTime          @default(now())
+
+  user      User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  portal    Portal?           @relation(fields: [portalId], references: [id], onDelete: SetNull)
+
+  @@index([userId, readAt])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  actorId    String
+  action     String
+  entityType String
+  entityId   String
+  ip         String
+  userAgent  String
+  metadata   Json     @default("{}")
+  createdAt  DateTime @default(now())
+
+  actor      User     @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId])
+  @@index([action])
+  @@index([createdAt])
+}

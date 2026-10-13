@@ -1,0 +1,16 @@
+{
+  "name": "@wb-sso/mock-factory-portal",
+  "version": "1.0.0",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jose": "^5.9.6"
+  }
+}

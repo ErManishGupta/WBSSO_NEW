@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+apps/api/keys/
+*.log
+coverage/
+.turbo/
+.cache/
+test-results/
+playwright-report/
+blob-report/

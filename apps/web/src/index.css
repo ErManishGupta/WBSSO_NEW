@@ -1,0 +1,161 @@
+@import '@fontsource/noto-sans/400.css';
+@import '@fontsource/noto-sans/500.css';
+@import '@fontsource/noto-sans/600.css';
+@import '@fontsource/noto-sans/700.css';
+@import '@fontsource/noto-sans-bengali/400.css';
+@import '@fontsource/noto-sans-bengali/500.css';
+@import '@fontsource/noto-sans-bengali/600.css';
+@import '@fontsource/noto-sans-bengali/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #FF7A00;
+  --color-primary-600: #E65100;
+  --color-accent: #FF9933;
+  --color-success: #138808;
+  --color-surface: #FFFFFF;
+  --color-canvas: #F8FAFC;
+  --color-border: #E2E8F0;
+  --color-text: #0F172A;
+  --color-muted: #64748B;
+  color-scheme: light;
+}
+
+.dark {
+  --color-primary: #FF8A1A;
+  --color-primary-600: #FF7A00;
+  --color-accent: #FFA733;
+  --color-success: #22C55E;
+  --color-surface: #0F1D35;
+  --color-canvas: #070D18;
+  --color-border: #1E293B;
+  --color-text: #F8FAFC;
+  --color-muted: #94A3B8;
+  color-scheme: dark;
+}
+
+html {
+  transition: background-color 0.25s ease, color 0.25s ease;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-text);
+  min-height: 100vh;
+  font-family: "Noto Sans", "Noto Sans Bengali", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Glassmorphism helpers for Light & Dark */
+.glass-card {
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(11, 37, 69, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.dark .glass-card {
+  background: rgba(15, 29, 53, 0.88);
+  border-color: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 12px 36px -5px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 122, 0, 0.5);
+  box-shadow: 0 16px 36px -6px rgba(255, 122, 0, 0.12), 0 6px 12px -3px rgba(0, 0, 0, 0.04);
+}
+
+.dark .glass-card-hover:hover {
+  border-color: rgba(255, 138, 26, 0.6);
+  box-shadow: 0 18px 40px -6px rgba(0, 0, 0, 0.6), 0 6px 16px -3px rgba(255, 122, 0, 0.15);
+}
+
+/* Saffron glowing button */
+.btn-saffron-glow {
+  background: linear-gradient(135deg, #FF8A1A 0%, #E65100 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px 0 rgba(230, 81, 0, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-saffron-glow:hover {
+  background: linear-gradient(135deg, #FFA033 0%, #D84315 100%);
+  box-shadow: 0 6px 20px 0 rgba(230, 81, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-saffron-glow:active {
+  transform: translateY(0);
+}
+
+/* High Contrast Mode */
+[data-contrast="high"] {
+  --color-primary: #000000;
+  --color-primary-600: #000000;
+  --color-accent: #FFFF00;
+  --color-success: #00FF00;
+  --color-surface: #000000;
+  --color-canvas: #000000;
+  --color-border: #FFFFFF;
+  --color-text: #FFFFFF;
+  --color-muted: #FFFFCC;
+  background: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+[data-contrast="high"] .glass-card,
+[data-contrast="high"] .bg-white,
+[data-contrast="high"] .dark\:bg-\[\#0F1D35\] {
+  background-color: #000000 !important;
+  border-color: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+[data-contrast="high"] *:focus-visible {
+  outline: 3px solid #FFFF00;
+  outline-offset: 2px;
+}
+
+/* Text Resizing */
+[data-text-size="large"] {
+  font-size: 115%;
+}
+
+[data-text-size="xlarge"] {
+  font-size: 130%;
+}
+
+/* Focus outline for accessibility (WCAG AA) */
+*:focus-visible {
+  outline: 3px solid #FF7A00;
+  outline-offset: 2px;
+}
+
+/* Skip Link */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: #E65100;
+  color: #FFFFFF;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  border-radius: 0 0 6px 6px;
+  font-weight: 600;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
