@@ -19,25 +19,25 @@ export const Footer: React.FC = () => {
           {/* Column 1: Directorate Identity & Mandate */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 rounded-xl bg-white/10 p-1.5 flex items-center justify-center border border-white/15 shadow-inner">
+              <div className="w-11 h-11 rounded-xl bg-white p-1 flex items-center justify-center border border-white/20 shadow-sm shrink-0">
                 <img
                   src="/wb.png"
                   alt="State Emblem of India"
-                  className="w-full h-full object-contain brightness-200"
+                  className="w-full h-full object-contain filter drop-shadow-xs"
                 />
               </div>
               <div>
                 <h3 className="text-sm font-black text-white uppercase tracking-tight leading-tight">
-                  DIRECTORATE OF FACTORIES
+                  LABOUR DEPARTMENT
                 </h3>
                 <p className="text-xs font-semibold text-white/70">
-                  Labour Department, Govt. of West Bengal
+                  Government of West Bengal
                 </p>
               </div>
             </div>
 
             <p className="text-xs text-white/70 leading-relaxed">
-              Official Single Sign-On and Entitlement Gateway providing unified, secure, and audited digital access to factory registrations, renewals, and welfare benefits across West Bengal.
+              Official Single Sign-On and Entitlement Gateway providing unified, secure, and audited digital access to statutory compliance, factory licences, boiler approvals, and labour welfare schemes across West Bengal.
             </p>
 
             <div className="flex flex-col gap-2 pt-1">
@@ -60,13 +60,13 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs text-white/75">
               <li>
                 <a
-                  href="https://silpasathi.wb.gov.in"
+                  href="https://wbfactories.gov.in"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-amber-300 hover:underline transition flex items-center gap-1.5"
                 >
                   <ExternalLink size={12} className="text-[#FF9933]" />
-                  <span>Silpasathi Single Window Portal</span>
+                  <span>Directorate of Factories Portal</span>
                 </a>
               </li>
               <li>
@@ -177,7 +177,7 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2.5">
                 <MapPin size={16} className="text-[#FF9933] shrink-0 mt-0.5" />
                 <div className="text-white/70 text-[11px] leading-relaxed">
-                  <strong>Directorate of Factories</strong>
+                  <strong>Labour Department, Govt. of West Bengal</strong>
                   <br />
                   New Secretariat Buildings (8th Floor),
                   <br />
@@ -191,7 +191,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Sub-Bar */}
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-white/60 gap-3">
           <div className="text-center sm:text-left">
-            © {new Date().getFullYear()} Directorate of Factories, Labour Department, Government of West Bengal. All rights reserved.
+            © {new Date().getFullYear()} Labour Department, Government of West Bengal. All rights reserved.
           </div>
           <div className="flex items-center gap-4 text-[11px] text-amber-200/80">
             <span>Website Designed & Maintained as per State IT Policy</span>

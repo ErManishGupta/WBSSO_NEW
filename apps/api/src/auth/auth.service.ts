@@ -52,6 +52,35 @@ export class AuthService {
     };
   }
 
+  async requestOtp(identifier: string) {
+    const cleanId = identifier.trim().replace(/^(\+91)/, '');
+    const user = await this.prisma.user.findFirst({
+      where: {
+        OR: [
+          { mobile: cleanId },
+          { mobile: identifier },
+          { username: identifier },
+          { email: identifier },
+        ],
+      },
+    });
+
+    if (!user) {
+      throw new BadRequestException('No registered account found for this mobile number');
+    }
+
+    const rawMobile = user.mobile || cleanId;
+    const last4 = rawMobile.slice(-4);
+    const maskedMobile = `XXXXXX${last4}`;
+
+    return {
+      success: true,
+      message: 'OTP has been sent to your registered mobile number',
+      maskedMobile,
+      identifier: user.mobile || user.username,
+    };
+  }
+
   async verifyOtp(
     identifier: string,
     code: string,

@@ -24,6 +24,10 @@ class LoginDto {
   useOtp?: boolean;
 }
 
+class OtpRequestDto {
+  mobile!: string;
+}
+
 class OtpVerifyDto {
   identifier!: string;
   code!: string;
@@ -33,6 +37,13 @@ class OtpVerifyDto {
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Post('auth/otp/send')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Send OTP to registered mobile number' })
+  async requestOtp(@Body() body: OtpRequestDto) {
+    return this.authService.requestOtp(body.mobile);
+  }
 
   @Post('auth/login')
   @HttpCode(HttpStatus.OK)

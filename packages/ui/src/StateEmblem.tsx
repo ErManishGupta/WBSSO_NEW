@@ -15,7 +15,7 @@ export const StateEmblem: React.FC<StateEmblemProps> = ({
     <div
       role="img"
       aria-label="Government Emblem of West Bengal"
-      className={`inline-flex items-center justify-center shrink-0 select-none ${className}`}
+      className={`inline-flex items-center justify-center shrink-0 select-none bg-white rounded-xl p-1 shadow-xs border border-gray-200/80 ${className}`}
       style={{ width: size, height: size }}
     >
       <img

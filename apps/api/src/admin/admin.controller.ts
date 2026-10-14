@@ -4,6 +4,7 @@ import {
   Post,
   Put,
   Patch,
+  Delete,
   Param,
   Body,
   Query,
@@ -50,12 +51,25 @@ class UpdateAccountStatusDto {
   status!: AccountStatus;
 }
 
+class LinkAccountDto {
+  userId!: string;
+  portalId!: string;
+  externalUserId!: string;
+  portalRole!: string;
+}
+
 @ApiTags('Admin Console')
 @Controller('admin')
 @UseGuards(AuthGuard, RolesGuard)
 @Roles('ADMIN')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
+
+  @Get('stats')
+  @ApiOperation({ summary: 'Admin: Get executive dashboard KPI metrics & health' })
+  async getStats() {
+    return await this.adminService.getStats();
+  }
 
   @Get('portals')
   @ApiOperation({ summary: 'Admin: Get all portals including configuration' })
@@ -79,6 +93,12 @@ export class AdminController {
     return await this.adminService.updatePortal(id, body, admin);
   }
 
+  @Delete('portals/:id')
+  @ApiOperation({ summary: 'Admin: Deregister/Delete a department portal' })
+  async deletePortal(@Param('id') id: string, @CurrentUser() admin: User) {
+    return await this.adminService.deletePortal(id, admin);
+  }
+
   @Get('accounts')
   @ApiOperation({ summary: 'Admin: List user portal accounts and entitlements' })
   async getAccounts(
@@ -89,6 +109,12 @@ export class AdminController {
     return await this.adminService.getAccounts({ search, status, portalId });
   }
 
+  @Post('accounts/link')
+  @ApiOperation({ summary: 'Admin: Manually map/link a user to a department portal' })
+  async linkAccount(@Body() body: LinkAccountDto, @CurrentUser() admin: User) {
+    return await this.adminService.linkUserAccount(body, admin);
+  }
+
   @Patch('accounts/:id')
   @ApiOperation({ summary: 'Admin: Suspend, revoke, or reactivate user portal mapping' })
   async updateAccountStatus(
@@ -97,6 +123,24 @@ export class AdminController {
     @CurrentUser() admin: User
   ) {
     return await this.adminService.updateAccountStatus(accountId, body.status, admin);
+  }
+
+  @Get('sessions')
+  @ApiOperation({ summary: 'Admin: List all active SSO terminal sessions across state' })
+  async getSessions() {
+    return await this.adminService.getActiveSessions();
+  }
+
+  @Delete('sessions/:id')
+  @ApiOperation({ summary: 'Admin: Immediately terminate an active session' })
+  async terminateSession(@Param('id') sessionId: string, @CurrentUser() admin: User) {
+    return await this.adminService.terminateSession(sessionId, admin);
+  }
+
+  @Get('users')
+  @ApiOperation({ summary: 'Admin: Search users for account mapping' })
+  async getUsers(@Query('search') search?: string) {
+    return await this.adminService.getAllUsers(search);
   }
 
   @Get('audit')

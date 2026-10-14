@@ -114,11 +114,15 @@ export class LocalIdentityProvider implements IdentityProvider {
   }): Promise<AuthenticationResult> {
     const { identifier, code } = params;
 
+    const cleanId = identifier.trim().replace(/^(\+91)/, '');
+
     const user = await this.prisma.user.findFirst({
       where: {
         OR: [
           { username: identifier },
+          { username: cleanId },
           { mobile: identifier },
+          { mobile: cleanId },
           { email: identifier },
         ],
       },

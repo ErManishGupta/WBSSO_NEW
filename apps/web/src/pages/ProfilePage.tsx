@@ -15,6 +15,7 @@ import {
   Moon,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 
 interface ProfilePageProps {
   user: SafeUser;
@@ -23,9 +24,8 @@ interface ProfilePageProps {
 export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const { theme, toggleTheme } = useTheme();
   const {
-    theme,
-    toggleTheme,
     language,
     setLanguage,
     contrastMode,
@@ -52,18 +52,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="flex-1 max-w-5xl mx-auto w-full px-4 py-8 transition-colors duration-300"
+      className="flex-1 max-w-5xl mx-auto w-full px-3.5 sm:px-6 py-6 sm:py-8 transition-colors duration-300"
     >
-      <h1 className="text-2xl font-black text-[#0B2545] dark:text-white mb-2 transition-colors">
+      <h1 className="text-xl sm:text-2xl font-black text-[#0B2545] dark:text-white mb-2 transition-colors">
         Profile & Security Settings
       </h1>
-      <p className="text-xs text-[#57534E] dark:text-slate-400 mb-8">
+      <p className="text-xs text-[#57534E] dark:text-slate-400 mb-6 sm:mb-8">
         Manage your user preferences, accessibility options, and active Single Sign-On sessions.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
         {/* User Card */}
-        <div className="bg-white dark:bg-[#0F1D35] border border-[#D9DFEA] dark:border-slate-800 rounded-3xl p-6 shadow-sm transition-colors">
+        <div className="bg-white dark:bg-[#0F1D35] border border-[#D9DFEA] dark:border-slate-800 rounded-2xl sm:rounded-3xl p-5 sm:p-6 shadow-sm transition-colors">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#FF9933] to-[#D34D09] text-white flex items-center justify-center font-extrabold text-2xl mx-auto mb-4 shadow-sm">
             {user.name.charAt(0)}
           </div>
@@ -108,7 +108,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={theme === 'light' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      theme === 'light'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => theme === 'dark' && toggleTheme()}
                   >
                     Light
@@ -116,7 +120,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={theme === 'dark' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      theme === 'dark'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => theme === 'light' && toggleTheme()}
                   >
                     Dark
@@ -134,7 +142,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={language === 'en' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      language === 'en'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => setLanguage('en')}
                   >
                     English
@@ -142,7 +154,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={language === 'bn' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      language === 'bn'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => setLanguage('bn')}
                   >
                     বাংলা
@@ -153,14 +169,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
               {/* Text Size Preference */}
               <div className="p-3 bg-[#F8FAFC] dark:bg-slate-900 rounded-2xl border border-[#E2E8F0] dark:border-slate-800">
                 <div className="font-semibold text-[#101828] dark:text-slate-200 mb-2 flex items-center gap-1.5">
-                  <Type size={14} />
+                  <Type size={14} className="text-[#FF7A00]" />
                   <span>Text Size</span>
                 </div>
                 <div className="flex gap-1">
                   <Button
                     variant={textSize === 'normal' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      textSize === 'normal'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => setTextSize('normal')}
                   >
                     A-
@@ -168,7 +188,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={textSize === 'large' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      textSize === 'large'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => setTextSize('large')}
                   >
                     A
@@ -176,7 +200,11 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ user }) => {
                   <Button
                     variant={textSize === 'xlarge' ? 'primary' : 'secondary'}
                     size="sm"
-                    className="h-8 text-xs flex-1"
+                    className={`h-8 text-xs flex-1 transition ${
+                      textSize === 'xlarge'
+                        ? 'bg-[#FF7A00] hover:bg-[#E65100] text-white border-transparent shadow-xs'
+                        : 'text-gray-600 dark:text-slate-400'
+                    }`}
                     onClick={() => setTextSize('xlarge')}
                   >
                     A+

@@ -11,35 +11,178 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+:root,
+[data-theme="light"] {
+  /* Core Brand Tokens */
   --color-primary: #FF7A00;
   --color-primary-600: #E65100;
   --color-accent: #FF9933;
-  --color-success: #138808;
-  --color-surface: #FFFFFF;
+  --accent-color: #FF7A00;
+  --accent-hover: #E65100;
+
+  /* Semantic Layout Backgrounds */
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #F1F5F9;
   --color-canvas: #F8FAFC;
-  --color-border: #E2E8F0;
+
+  /* Surfaces */
+  --color-surface: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-card-hover: #F8FAFC;
+  --surface-dialog: #FFFFFF;
+  --surface-dropdown: rgba(255, 255, 255, 0.98);
+  --surface-muted: #F8FAFC;
+  --header-bg: rgba(255, 255, 255, 0.92);
+  --footer-bg: #0B2545;
+
+  /* Typography */
   --color-text: #0F172A;
+  --text-primary: #0F172A;
+  --text-secondary: #475467;
+  --text-muted: #64748B;
   --color-muted: #64748B;
+
+  /* Borders & Dividers */
+  --color-border: #E2E8F0;
+  --border-color: #E2E8F0;
+  --border-subtle: #F1F5F9;
+
+  /* Form Elements */
+  --input-background: #FFFFFF;
+  --input-border: #CBD5E1;
+  --input-placeholder: #94A3B8;
+
+  /* Semantic Status Colors */
+  --color-success: #138808;
+  --color-warning: #D97706;
+  --color-danger: #DC2626;
+  --color-info: #0284C7;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px -5px rgba(11, 37, 69, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-dropdown: 0 20px 50px rgba(0, 0, 0, 0.12);
+  --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.18);
+
   color-scheme: light;
 }
 
-.dark {
+.dark,
+[data-theme="dark"] {
+  /* Core Brand Tokens */
   --color-primary: #FF8A1A;
   --color-primary-600: #FF7A00;
   --color-accent: #FFA733;
-  --color-success: #22C55E;
-  --color-surface: #0F1D35;
+  --accent-color: #FF8A1A;
+  --accent-hover: #FFA033;
+
+  /* Semantic Layout Backgrounds */
+  --bg-primary: #070D18;
+  --bg-secondary: #0B1528;
   --color-canvas: #070D18;
-  --color-border: #1E293B;
+
+  /* Surfaces */
+  --color-surface: #0F1D35;
+  --surface-card: #0F1D35;
+  --surface-card-hover: #142749;
+  --surface-dialog: #0F1D35;
+  --surface-dropdown: rgba(15, 29, 53, 0.98);
+  --surface-muted: #0B1528;
+  --header-bg: rgba(7, 13, 24, 0.92);
+  --footer-bg: #040810;
+
+  /* Typography */
   --color-text: #F8FAFC;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
   --color-muted: #94A3B8;
+
+  /* Borders & Dividers */
+  --color-border: #1E293B;
+  --border-color: #1E293B;
+  --border-subtle: #162032;
+
+  /* Form Elements */
+  --input-background: #0B1528;
+  --input-border: #334155;
+  --input-placeholder: #64748B;
+
+  /* Semantic Status Colors */
+  --color-success: #22C55E;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #38BDF8;
+
+  /* Shadows */
+  --shadow-card: 0 12px 36px -5px rgba(0, 0, 0, 0.5), 0 4px 10px -2px rgba(0, 0, 0, 0.3);
+  --shadow-dropdown: 0 20px 50px rgba(0, 0, 0, 0.7);
+  --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.8);
+
   color-scheme: dark;
 }
 
+/* Native Control Autofill Fixes for Dark Mode */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover, 
+.dark input:-webkit-autofill:focus,
+.dark textarea:-webkit-autofill,
+.dark select:-webkit-autofill {
+  -webkit-text-fill-color: #F8FAFC !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0F1D35 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #0F172A;
+  -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 html {
-  transition: background-color 0.25s ease, color 0.25s ease;
   scroll-behavior: smooth;
+}
+
+/* Smooth Global Theme Transformation */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              fill 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              stroke 350ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 350ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transition-delay: 0s !important;
+}
+
+/* Native Browser View Transitions Crossfade Animation */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 350ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: theme-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes theme-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 body {
@@ -97,6 +240,184 @@ body {
 
 .btn-saffron-glow:active {
   transform: translateY(0);
+}
+
+/* Animated Indian Flag & Tricolour Animations */
+@keyframes flagWave {
+  0% {
+    transform: rotate(0deg) skewY(0deg) scaleY(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  }
+
+  25% {
+    transform: rotate(-1.5deg) skewY(-1.5deg) scaleY(1.02);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.18));
+  }
+
+  50% {
+    transform: rotate(0.5deg) skewY(1deg) scaleY(0.99);
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.12));
+  }
+
+  75% {
+    transform: rotate(1.8deg) skewY(-1deg) scaleY(1.02);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+  }
+
+  100% {
+    transform: rotate(0deg) skewY(0deg) scaleY(1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  }
+}
+
+@keyframes flagSheen {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 250% 0;
+  }
+}
+
+@keyframes tricolorFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-flag-wave {
+  animation: flagWave 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transform-origin: 0% 50%;
+}
+
+.flag-sheen-overlay {
+  background: linear-gradient(105deg,
+      rgba(255, 255, 255, 0) 25%,
+      rgba(255, 255, 255, 0.45) 50%,
+      rgba(255, 255, 255, 0) 75%);
+  background-size: 200% 100%;
+  animation: flagSheen 3.2s ease-in-out infinite;
+}
+
+.tricolor-flow-bar {
+  background: linear-gradient(90deg,
+      #FF7A00 0%,
+      #FFA733 20%,
+      #FFFFFF 50%,
+      #2ECC71 80%,
+      #138808 100%);
+  background-size: 200% 200%;
+  animation: tricolorFlow 6s ease-in-out infinite;
+}
+
+/* Animated Header Background Mesh / Gradient Flow */
+@keyframes headerMeshFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes orbFloatSaffron {
+
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.18;
+  }
+
+  33% {
+    transform: translate(70px, -12px) scale(1.22);
+    opacity: 0.32;
+  }
+
+  66% {
+    transform: translate(-35px, 10px) scale(0.92);
+    opacity: 0.22;
+  }
+}
+
+@keyframes orbFloatGreen {
+
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.15;
+  }
+
+  33% {
+    transform: translate(-60px, 14px) scale(1.18);
+    opacity: 0.28;
+  }
+
+  66% {
+    transform: translate(45px, -8px) scale(0.95);
+    opacity: 0.20;
+  }
+}
+
+@keyframes orbFloatCenter {
+
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.12;
+  }
+
+  50% {
+    transform: translate(35px, -15px) scale(1.28);
+    opacity: 0.25;
+  }
+}
+
+.animate-orb-saffron {
+  animation: orbFloatSaffron 8s ease-in-out infinite;
+}
+
+.animate-orb-green {
+  animation: orbFloatGreen 9s ease-in-out infinite;
+}
+
+.animate-orb-center {
+  animation: orbFloatCenter 7s ease-in-out infinite;
+}
+
+.header-animated-mesh {
+  background: linear-gradient(-45deg,
+      rgba(255, 122, 0, 0.08) 0%,
+      rgba(255, 255, 255, 0.94) 25%,
+      rgba(19, 136, 8, 0.06) 50%,
+      rgba(255, 255, 255, 0.94) 75%,
+      rgba(255, 122, 0, 0.08) 100%);
+  background-size: 300% 300%;
+  animation: headerMeshFlow 14s ease-in-out infinite;
+}
+
+.dark .header-animated-mesh {
+  background: linear-gradient(-45deg,
+      rgba(255, 122, 0, 0.14) 0%,
+      rgba(7, 14, 27, 0.94) 30%,
+      rgba(19, 136, 8, 0.12) 60%,
+      rgba(7, 14, 27, 0.94) 85%,
+      rgba(255, 122, 0, 0.14) 100%);
+  background-size: 300% 300%;
+  animation: headerMeshFlow 14s ease-in-out infinite;
 }
 
 /* High Contrast Mode */

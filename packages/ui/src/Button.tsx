@@ -24,15 +24,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        'bg-[#14306B] hover:bg-[#1D4A9B] text-white shadow-sm border border-transparent',
+        'bg-[#0B2545] hover:bg-[#133863] text-white shadow-sm border border-transparent dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-white',
       secondary:
-        'bg-[#F4F6FA] hover:bg-[#E9EEF6] text-[#14306B] border border-[#D9DFEA]',
+        'bg-[#F4F6FA] hover:bg-[#E9EEF6] text-[#0B2545] border border-[#D9DFEA] dark:bg-slate-800 dark:hover:bg-slate-750 dark:text-slate-100 dark:border-slate-700',
       outline:
-        'border border-[#14306B] text-[#14306B] hover:bg-[#14306B]/5 bg-transparent',
+        'border border-[#0B2545] text-[#0B2545] hover:bg-[#0B2545]/5 bg-transparent dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800/60',
       danger:
-        'bg-[#C62828] hover:bg-[#B71C1C] text-white shadow-sm border border-transparent',
+        'bg-[#C62828] hover:bg-[#B71C1C] text-white shadow-sm border border-transparent dark:bg-red-700 dark:hover:bg-red-600',
       ghost:
-        'text-[#475467] hover:text-[#101828] hover:bg-black/5 bg-transparent',
+        'text-[#475467] hover:text-[#101828] hover:bg-black/5 bg-transparent dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/5',
     };
 
     const sizes = {

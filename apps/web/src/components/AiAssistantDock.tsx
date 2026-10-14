@@ -16,9 +16,9 @@ export const AiAssistantDock: React.FC = () => {
   return (
     <aside
       aria-label="AI Assistant Dock"
-      className="fixed bottom-6 right-6 z-30 flex items-center gap-2 bg-[#14306B] text-white px-4 py-3 rounded-full shadow-lg border border-white/20 hover:bg-[#1D4A9B] cursor-pointer transition select-none"
+      className="fixed bottom-6 right-6 z-30 flex items-center gap-2 bg-[#0B2545] dark:bg-slate-800 text-white px-4 py-3 rounded-full shadow-lg border border-white/20 dark:border-slate-700 hover:bg-[#133863] dark:hover:bg-slate-750 cursor-pointer transition select-none"
     >
-      <div className="p-1 bg-yellow-400 text-[#14306B] rounded-full">
+      <div className="p-1 bg-amber-400 text-[#0B2545] rounded-full">
         <Sparkles size={16} />
       </div>
       <div className="text-sm font-semibold flex items-center gap-1.5">
